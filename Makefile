@@ -1,5 +1,5 @@
 TARGET = pong
-OBJS = main.o common/callback.o common/ui.o
+OBJS = main.o common/callback.o common/ui.o game/pong.o
 
 INCDIR = 
 CFLAGS = -O2 -G0 -Wall

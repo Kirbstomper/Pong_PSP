@@ -7,6 +7,7 @@
 // include commons stuff
 #include "common/callback.h"
 #include "common/ui.h"
+#include "game/pong.h"
  
  
 // configure PSP stuff
@@ -34,13 +35,13 @@ int main(int argc, char** argv)
         pspDebugScreenSetXY(0, 0);
         pollPad();
         pollLatch();
-        if(isKeyDown(PSP_CTRL_CROSS))
-            printf("Cross is down!\n");
-        if(isKeyUp(PSP_CTRL_CROSS))
-            printf("Cross is up!\n");
-        if(isKeyHold(PSP_CTRL_CIRCLE))
-            printf("Circle is down!\n");
-        printf("%d,%d", getJX(), getJY());
+        
+        if(isKeyHold(PSP_CTRL_UP))
+            printf("move up"); // Should send to game to move player position up
+        if(isKeyHold(PSP_CTRL_DOWN))
+            printf("move down"); // Should send to game to move player position down
+
+        printf("%d", getScore()); // Should display the score somewhere
     }
    
     sceKernelExitGame();
