@@ -1,0 +1,9 @@
+EBOOT.PBP
+PARAM.SFO
+pong.elf
+user_input.elf
+common/ui.o
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+common/callback.o
+game/pong.o
