@@ -36,10 +36,15 @@ int main(int argc, char** argv)
         pollPad();
         pollLatch();
         
-        if(isKeyHold(PSP_CTRL_UP))
-            printf("move up"); // Should send to game to move player position up
-        if(isKeyHold(PSP_CTRL_DOWN))
-            printf("move down"); // Should send to game to move player position down
+        if(isKeyHold(PSP_CTRL_UP)){
+            movePlayerUp();
+            printf("%d",getPlayerPos()); // Should send to game to move player position up
+        }
+        if(isKeyHold(PSP_CTRL_DOWN)){
+            movePlayerDown();
+            printf("%d",getPlayerPos()); // Should send to game to move player position up
+        }
+            
 
         printf("%d", getScore()); // Should display the score somewhere
     }
