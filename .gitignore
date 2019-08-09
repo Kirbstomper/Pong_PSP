@@ -7,3 +7,4 @@ common/ui.o
 .vscode/settings.json
 common/callback.o
 game/pong.o
+main.o
