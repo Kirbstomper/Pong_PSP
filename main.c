@@ -1,9 +1,16 @@
 // include psp stuff
+
 #include <pspkernel.h>
 #include <pspdebug.h>
 #include <pspdisplay.h>
 #include <pspctrl.h>
- 
+#include <pspgu.h>
+
+
+
+#include<oslib/oslib.h>
+
+
 // include commons stuff
 #include "common/callback.h"
 #include "common/ui.h"
@@ -19,36 +26,60 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
  
 // make printing easier on us
 #define printf pspDebugScreenPrintf
- 
+// RGB to decimal color conversion macro
+
+
 int main(int argc, char** argv)
 {
     // basic init
     setupExitCallback();
     pspDebugScreenInit();
-   
-    sceCtrlSetSamplingCycle(0);
-    sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
+
+    //Writing to display
+    sceDisplaySetMode(0,480,272);
+    sceDisplaySetFrameBuf(0x4000000, 512, 3, 1);
+
+    //Initialization of the Oslib library
+    oslInit(0);
+
+    //Initialization of the graphics mode
+    oslInitGfx(OSL_PF_8888, 1);
+    
+    //Initialization of the text console
+    oslInitConsole();
+
+    //Print on the screen this text
+    oslPrintf("Hello World");
+    
+    //Wait for a button to be pressed
+    //Start drawing
+    
    
     while (isRunning()) {
-        sceDisplayWaitVblankStart();
-        pspDebugScreenClear();
-        pspDebugScreenSetXY(0, 0);
-        pollPad();
-        pollLatch();
-        
-        if(isKeyHold(PSP_CTRL_UP)){
+       oslStartDrawing();
+       oslClearScreen(RGB(70,130,180));
+       oslMoveTo(0,0);
+        oslReadKeys();
+        oslDrawFillRect(5, getPlayerPos(),25 , getPlayerPos()+50, RGB(255, 0, 0));
+        oslDrawFillRect(400, getCpuPos(),425 , getCpuPos()+50, RGB(255, 0, 255));
+        oslDrawStringf(200,25,"Score: %d",getScore());
+        if(osl_pad.pressed.up){
             movePlayerUp();
-            printf("%d",getPlayerPos()); // Should send to game to move player position up
+             //Draw player position
         }
-        if(isKeyHold(PSP_CTRL_DOWN)){
+        if(osl_pad.pressed.down){
             movePlayerDown();
-            printf("%d",getPlayerPos()); // Should send to game to move player position up
         }
-            
+         oslEndDrawing();
+         oslEndFrame();
+         oslSyncFrame();
 
-        printf("%d", getScore()); // Should display the score somewhere
+       // oslPrintf("%d", getScore()); // Should display the score somewhere
     }
    
-    sceKernelExitGame();
+    
+    //terminate the program
+    oslEndGfx();
+    oslQuit();
     return 0;
 }

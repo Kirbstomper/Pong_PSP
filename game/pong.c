@@ -28,7 +28,9 @@ int getPlayerPos(){
     return player_pos;
 }
 
-
+int getCpuPos(){
+    return cpu_pos; 
+}
 /*
     Move the player up if able
  */

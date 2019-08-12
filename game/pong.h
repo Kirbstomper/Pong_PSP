@@ -8,3 +8,5 @@ int getScore();
 int getPlayerPos();
 int movePlayerUp();
 int movePlayerDown();
+
+int getCpuPos();
