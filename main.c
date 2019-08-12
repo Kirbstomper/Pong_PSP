@@ -28,7 +28,6 @@ PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
 #define printf pspDebugScreenPrintf
 // RGB to decimal color conversion macro
 
-
 int main(int argc, char** argv)
 {
     // basic init
@@ -51,30 +50,35 @@ int main(int argc, char** argv)
     //Print on the screen this text
     oslPrintf("Hello World");
     
-    //Wait for a button to be pressed
-    //Start drawing
+   
     
    
     while (isRunning()) {
        oslStartDrawing();
-       oslClearScreen(RGB(70,130,180));
-       oslMoveTo(0,0);
+       oslClearScreen(RGB(70,130,180));                                            // Clear screen to display background colour
+
         oslReadKeys();
-        oslDrawFillRect(5, getPlayerPos(),25 , getPlayerPos()+50, RGB(255, 0, 0));
-        oslDrawFillRect(400, getCpuPos(),425 , getCpuPos()+50, RGB(255, 0, 255));
-        oslDrawStringf(200,25,"Score: %d",getScore());
-        if(osl_pad.pressed.up){
+        oslDrawFillRect(PLAYER_START_X, getPlayerPos(),PLAYER_END_X,getPlayerPos()+PADDLE_HEIGHT, RGB(255, 0, 0)); // Draw player position
+        oslDrawFillRect(CPU_START_X, getCpuPos(),CPU_END_X, getCpuPos()+PADDLE_HEIGHT, RGB(255, 0, 255));  // Draw computer position
+        oslDrawStringf(200,25,"Score: %d",getScore());                             // display score on screen
+        
+    
+        /*** Handle player input ****/
+        
+        if(osl_pad.held.up){
             movePlayerUp();
-             //Draw player position
         }
-        if(osl_pad.pressed.down){
+        if(osl_pad.held.down){
             movePlayerDown();
         }
+
+        /****Handle the ball ******/
+
+        //Finish drawing the frame
          oslEndDrawing();
          oslEndFrame();
          oslSyncFrame();
 
-       // oslPrintf("%d", getScore()); // Should display the score somewhere
     }
    
     

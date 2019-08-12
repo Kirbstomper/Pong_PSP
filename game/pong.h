@@ -4,6 +4,12 @@
 #endif
 int getScore();
 
+extern const int PLAYER_START_X;
+extern const int  CPU_START_X;
+extern const int PLAYER_END_X;
+extern const int CPU_END_X;
+extern const int PADDLE_WIDTH;
+extern const int PADDLE_HEIGHT;
 
 int getPlayerPos();
 int movePlayerUp();
