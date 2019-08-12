@@ -2,7 +2,8 @@
 #define PONG_H
 
 #endif
-int getScore();
+int getPlayerScore();
+int getCpuScore();
 
 extern const int PLAYER_START_X;
 extern const int  CPU_START_X;
@@ -16,3 +17,6 @@ int movePlayerUp();
 int movePlayerDown();
 
 int getCpuPos();
+int handleCpu();
+
+int handleBall();

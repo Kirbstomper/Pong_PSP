@@ -58,9 +58,11 @@ int main(int argc, char** argv)
        oslClearScreen(RGB(70,130,180));                                            // Clear screen to display background colour
 
         oslReadKeys();
+
         oslDrawFillRect(PLAYER_START_X, getPlayerPos(),PLAYER_END_X,getPlayerPos()+PADDLE_HEIGHT, RGB(255, 0, 0)); // Draw player position
         oslDrawFillRect(CPU_START_X, getCpuPos(),CPU_END_X, getCpuPos()+PADDLE_HEIGHT, RGB(255, 0, 255));  // Draw computer position
-        oslDrawStringf(200,25,"Score: %d",getScore());                             // display score on screen
+
+        oslDrawStringf(200,25,"Player: %d || CPU: %d",getPlayerScore(),getCpuScore());                             // display score on screen
         
     
         /*** Handle player input ****/
@@ -72,8 +74,9 @@ int main(int argc, char** argv)
             movePlayerDown();
         }
 
-        /****Handle the ball ******/
-
+        /****Handle the ball and CPU ******/
+        handleBall();
+        handleCpu();
         //Finish drawing the frame
          oslEndDrawing();
          oslEndFrame();
